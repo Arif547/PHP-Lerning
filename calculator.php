@@ -19,14 +19,16 @@
         <input type="number" step="any" name="num02" placeholder="Enter second number" >
         <br>
         <button type="submit" name="submit" value="submit">Calculate</button>
+
     </form>
 
     <?php 
+    $value = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //Grab data from form
-        $num01 = filter_input(INPUT_POST, "num01", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-        $num02 = filter_input(INPUT_POST, "num02", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-        $operator = htmlspecialchars($_POST["operator"]);
+        $num01 = filter_input(INPUT_POST, "num01", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION); //FILTER_FLAG_ALLOW_FRACTION allows decimal points (2.5), FILTER_SANITIZE_NUMBER_FLOAT removes all illegal characters from a number
+        $num02 = filter_input(INPUT_POST, "num02", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION); //FILTER_FLAG_ALLOW_FRACTION allows decimal points (2.5), FILTER_SANITIZE_NUMBER_FLOAT removes all illegal characters from a number
+        $operator = htmlspecialchars($_POST["operator"]); //sanitize operator input
 
         //error handling
         $errors = false;
@@ -43,7 +45,7 @@
 
         //calculate the numbers if no errors
         if (!$errors) {
-            $value = 0;
+            
 
             switch ($operator) {
                 case "add":
